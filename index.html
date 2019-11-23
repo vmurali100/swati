@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <table border="1">
+      <thead>
+        <th>First Name</th>
+        <th>Last Name</th>
+      </thead>
+      <tbody id="myTable"></tbody>
+    </table>
+    <script>
+      function getData() {
+        var getInfo = new XMLHttpRequest();
+        getInfo.onreadystatechange = function() {
+          if (getInfo.readyState == 4 && getInfo.status == 200) {
+            data = JSON.parse(getInfo.response);
+            displayData(data);
+          }
+        };
+
+        getInfo.open("GET", "http://localhost:3000/users");
+        getInfo.send();
+      }
+
+      function displayData(users) {
+        for (i = 0; i < users.length; i++) {
+          console.log(users[i]);
+          var myTr = document.createElement("tr");
+          var td1 = document.createElement("td");
+          td1.innerHTML = users[i].userName;
+          myTr.appendChild(td1);
+          var td2 = document.createElement("td");
+          td2.innerHTML = users[i].email;
+          myTr.appendChild(td2);
+          document.getElementById("myTable").appendChild(myTr);
+        }
+      }
+      getData();
+    </script>
+  </body>
+</html>
