@@ -1,25 +1,41 @@
 import React, { Component } from "react";
 
 export default class Child extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      user: { id: "", email: "", username: "", password: "" }
+    };
+  }
+
   render() {
     return (
       <div>
         <form>
           <div className="form-group">
             <label htmlFor="id">Id</label>
-            <input type="text" className="form-control" value={user.id} />
+            <input
+              type="text"
+              className="form-control"
+              value={this.props.objFromParent.id}
+            />
           </div>
 
           <div className="form-group">
             <label htmlFor="exampleInputEmail1">Email address</label>
-            <input type="email" className="form-control" value={user.email} />
+            <input
+              type="email"
+              className="form-control"
+              value={this.props.objFromParent.email}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="exampleInputEmail1">User Name</label>
             <input
               type="email"
               className="form-control"
-              value={user.username}
+              value={this.props.objFromParent.username}
             />
           </div>
           <div className="form-group">
@@ -27,7 +43,7 @@ export default class Child extends Component {
             <input
               type="password"
               className="form-control"
-              value={user.password}
+              value={this.props.objFromParent.password}
             />
           </div>
 
@@ -39,10 +55,3 @@ export default class Child extends Component {
     );
   }
 }
-
-let user = {
-  id: null,
-  email: "",
-  username: "",
-  password: ""
-};

@@ -6,7 +6,12 @@ export default class Parent extends Component {
     super(props);
 
     this.state = {
-      editUser: {},
+      editUser: {
+        id: "",
+        email: "",
+        username: "",
+        password: ""
+      },
       users: [
         {
           id: 2632,
