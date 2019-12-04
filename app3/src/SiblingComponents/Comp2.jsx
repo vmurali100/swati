@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-export default class Child extends Component {
+export default class Comp2 extends Component {
   render() {
     return (
       <div>
@@ -10,8 +10,8 @@ export default class Child extends Component {
             <input
               type="text"
               className="form-control"
-              value={this.props.objFromParent.id}
               name="id"
+              value={this.props.editObj.id}
               onChange={e => {
                 this.props.handleChange(e);
               }}
@@ -23,8 +23,8 @@ export default class Child extends Component {
             <input
               type="email"
               className="form-control"
-              value={this.props.objFromParent.email}
               name="email"
+              value={this.props.editObj.email}
               onChange={e => {
                 this.props.handleChange(e);
               }}
@@ -36,7 +36,7 @@ export default class Child extends Component {
               type="text"
               className="form-control"
               name="username"
-              value={this.props.objFromParent.username}
+              value={this.props.editObj.username}
               onChange={e => {
                 this.props.handleChange(e);
               }}
@@ -48,7 +48,7 @@ export default class Child extends Component {
               type="password"
               className="form-control"
               name="password"
-              value={this.props.objFromParent.password}
+              value={this.props.editObj.password}
               onChange={e => {
                 this.props.handleChange(e);
               }}

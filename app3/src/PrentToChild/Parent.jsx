@@ -6,13 +6,7 @@ export default class Parent extends Component {
     super(props);
 
     this.state = {
-      index: null,
-      editUser: {
-        id: "",
-        email: "",
-        username: "",
-        password: ""
-      },
+      editUser: { id: "", email: "", username: "", password: "" },
       users: [
         {
           id: 2632,
@@ -47,37 +41,27 @@ export default class Parent extends Component {
       ]
     };
   }
-  editUser = (user, index) => {
-    this.setState({ editUser: Object.assign({}, user), index });
-  };
-
-  deleteUser = (user, index) => {
-    this.state.users.splice(index, 1);
-    this.setState({ users: this.state.users });
-  };
-
-  handleChange = e => {
-    let editUser = this.state.editUser;
-    editUser[e.target.name] = e.target.value;
-    this.setState({ editUser });
-  };
-
   updateUser = () => {
     let users = this.state.users;
     users[this.state.index] = this.state.editUser;
     this.setState({ users });
     this.clearForm();
   };
-
+  handleChange = e => {
+    let editUser = this.state.editUser;
+    editUser[e.target.name] = e.target.value;
+    this.setState({ editUser });
+  };
+  editUser = (user, index) => {
+    this.setState({ editUser: Object.assign({}, user), index });
+  };
   clearForm = () => {
-    this.setState({
-      editUser: {
-        id: "",
-        email: "",
-        username: "",
-        password: ""
-      }
-    });
+    this.state.editUser = {
+      id: "",
+      email: "",
+      username: "",
+      password: ""
+    };
   };
   render() {
     return (
