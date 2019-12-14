@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "fname": "Murali",
+      "lname": "Phuan",
+      "email": "leelavathikm1@gmail.com",
+      "id": 1
+    },
+    {
+      "fname": "Patricia",
+      "lname": "Wray",
+      "email": "SAhmad@nullam.org",
+      "id": 2
+    },
+    {
+      "fname": "Arunama",
+      "lname": "Youngamam",
+      "email": "WMcnamee@turpis.gov",
+      "id": 3
+    },
+    {
+      "fname": "Janette",
+      "lname": "Sturm",
+      "email": "PRossi@placerat.org",
+      "id": 4
+    },
+    {
+      "fname": "Sherrie-updated",
+      "lname": "Grimsley",
+      "email": "WMcnamee@turpis.gov",
+      "id": 5
+    },
+    {
+      "fname": "Lavern",
+      "lname": "Brabant",
+      "email": "LBunker@sit.net",
+      "id": 6
+    }
+  ]
+}
