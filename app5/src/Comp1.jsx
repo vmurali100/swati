@@ -5,6 +5,7 @@ export default class Comp1 extends Component {
     super(props);
 
     this.state = {
+      isEdit: false,
       users: [],
       user: {
         fname: "",
@@ -79,9 +80,16 @@ export default class Comp1 extends Component {
           />
           <br />
 
-          <button onClick={this.addUser} type="button">
-            Add User
-          </button>
+          {!this.state.isEdit && (
+            <button onClick={this.addUser} type="button">
+              Add User
+            </button>
+          )}
+          {this.state.isEdit && (
+            <button onClick={this.updateUser} type="button">
+              Update User
+            </button>
+          )}
         </form>
         <br />
 
@@ -92,6 +100,8 @@ export default class Comp1 extends Component {
               <th>Last Name</th>
               <th>Email</th>
               <th>Id</th>
+              <th>Edit</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -101,6 +111,24 @@ export default class Comp1 extends Component {
                   {Object.values(u).map(val => {
                     return <td key={val}>{val}</td>;
                   })}
+                  <td>
+                    <button
+                      onClick={() => {
+                        this.editUser(u);
+                      }}
+                    >
+                      Edit
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        this.deleteUser(u);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               );
             })}
@@ -109,12 +137,35 @@ export default class Comp1 extends Component {
       </div>
     );
   }
+  updateUser = () => {
+    console.log(this.state.user);
+    axios
+      .put("http://localhost:3000/users/" + this.state.user.id, this.state.user)
+      .then(res => {
+        this.getLatestUsers();
+      });
+  };
 
-  componentDidMount() {
+  editUser = myUser => {
+    let user = Object.assign({}, myUser);
+    this.setState({ user, isEdit: true });
+  };
+
+  deleteUser = user => {
+    console.log(user);
+    axios.delete("http://localhost:3000/users/" + user.id).then(res => {
+      console.log(res);
+      this.getLatestUsers();
+    });
+  };
+  getLatestUsers = () => {
     axios.get("http://localhost:3000/users").then(res => {
       console.log(res.data);
       this.setState({ users: res.data });
     });
+  };
+  componentDidMount() {
+    this.getLatestUsers();
     // axios.get("http://localhost:3000/users").then(res => {
     //   console.log(res.data);
     // });
@@ -131,7 +182,6 @@ export default class Comp1 extends Component {
     //   method: "DELETE",
     //   url: "http://localhost:3000/users/1"
     // });
-
     // axios({
     //   method: "PUT",
     //   url: "http://localhost:3000/users/1"
