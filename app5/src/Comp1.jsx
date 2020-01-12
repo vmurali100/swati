@@ -14,6 +14,7 @@ export default class Comp1 extends Component {
         id: null
       }
     };
+    console.log("Constructor Called");
   }
   clearData = () => {
     let user = this.state.user;
@@ -45,6 +46,7 @@ export default class Comp1 extends Component {
     this.setState({ user });
   };
   render() {
+    console.log("Render Method Called");
     return (
       <div>
         <h1>Welcome to Comp1</h1>
@@ -165,6 +167,7 @@ export default class Comp1 extends Component {
     });
   };
   componentDidMount() {
+    console.log("componentDidMount is called");
     this.getLatestUsers();
     // axios.get("http://localhost:3000/users").then(res => {
     //   console.log(res.data);
