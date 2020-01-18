@@ -1,15 +1,47 @@
 import React from "react";
 import "./App.css";
-import Comp1 from "./Comp1";
-import Comp2 from "./Comp2";
-
-function App() {
+import { connect } from "react-redux";
+function App(props) {
+  console.log(props);
   return (
     <div className="App">
-      {/* <Comp1 /> */}
-      <Comp2 />
+      <h2>Hello World</h2>
+      <button
+        onClick={() => {
+          props.prepareCofee();
+        }}
+      >
+        Prepare Coffee
+      </button>
+
+      <button
+        onClick={() => {
+          props.prepareTea();
+        }}
+      >
+        Prepare Tea
+      </button>
     </div>
   );
 }
 
-export default App;
+// Map state to Props has to return an Object Always
+function mapStateToProps(state) {
+  console.log(state);
+  return {};
+}
+
+export default connect(mapStateToProps, { prepareCofee, prepareTea })(App);
+
+//Actions to trigger reducer
+function prepareCofee() {
+  return {
+    type: "COFFEE"
+  };
+}
+
+function prepareTea() {
+  return {
+    type: "TEA"
+  };
+}
