@@ -1,15 +1,13 @@
 {
   "users": [
     {
-      "fname": "Murali",
-      "lname": "Phuan",
-      "email": "leelavathikm1@gmail.com",
+      "email": "vmurali100@gmail.com",
+      "password": "12345",
       "id": 1
     },
     {
-      "fname": "Patricia",
-      "lname": "Wray-updated",
-      "email": "SAhmad@nullam.org",
+      "email": "vmuraliVMK@gmail.com",
+      "password": "12334",
       "id": 2
     }
   ]

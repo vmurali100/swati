@@ -1,34 +1,58 @@
-import React, { useState } from "react";
-import "./App.css";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
 import { Button, Form, Container, Row, Col, Table } from "react-bootstrap";
-import { addUser, deleteUser, updateUser } from "./Actions";
+import {
+  addUser,
+  deleteUser,
+  updateUser,
+  getLatestUsers
+} from "./Actions/index";
+import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
+import { connect } from "react-redux";
+
+import "./App.css";
 
 function App(props) {
   const [user, setUser] = useState({ email: "", password: "" });
   const [index, setIndex] = useState(null);
   const [isEdit, setEdit] = useState(false);
+  const { users } = props;
+
+  const getUsers = () => {
+    axios.get("http://localhost:3000/users").then(res => {
+      props.getLatestUsers(res.data);
+    });
+  };
+
   const handleSubmit = () => {
-    props.addUser(user);
-    setUser({ email: "", password: "" });
-  };
-
-  const handleDelete = index => {
-    props.deleteUser(index);
-  };
-
-  const editUser = (user, i) => {
-    setUser(user);
-    setIndex(i);
-    setEdit(true);
+    axios.post("http://localhost:3000/users", user).then(res => {
+      getUsers();
+    });
   };
 
   const updateUser = () => {
-    props.updateUser(index, user);
-    setUser({ email: "", password: "" });
-    setEdit(false);
+    console.log(user);
+    axios.put("http://localhost:3000/users/" + user.id, user).then(res => {
+      getUsers();
+    });
   };
-  const { users } = props;
+  const editUser = (user, index) => {
+    console.log(user);
+    setUser(user);
+    setEdit(true);
+  };
+
+  const handleDelete = user => {
+    axios.delete("http://localhost:3000/users/" + user.id).then(res => {
+      getUsers();
+    });
+  };
+
+  //This will trigger when application renders
+  useEffect(() => {
+    getUsers();
+  }, []);
+
   return (
     <div className="App">
       <Container>
@@ -91,11 +115,13 @@ function App(props) {
                 <tr>
                   <th>Email</th>
                   <th>Password</th>
+                  <th>ID</th>
                   <th>Edit</th>
                   <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
+                {console.log(users)}
                 {users.map((user, index) => {
                   return (
                     <tr key={user.email}>
@@ -116,7 +142,7 @@ function App(props) {
                         <Button
                           variant="danger"
                           onClick={() => {
-                            handleDelete(index);
+                            handleDelete(user);
                           }}
                         >
                           Delete
@@ -135,12 +161,14 @@ function App(props) {
 }
 
 function mapStateToProps(state) {
-  console.log("State In App Component : ", state);
   return {
     users: state
   };
 }
 
-export default connect(mapStateToProps, { addUser, deleteUser, updateUser })(
-  App
-);
+export default connect(mapStateToProps, {
+  addUser,
+  deleteUser,
+  updateUser,
+  getLatestUsers
+})(App);
